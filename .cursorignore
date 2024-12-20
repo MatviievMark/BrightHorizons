@@ -1,0 +1,8 @@
+*
+!.git/
+!node_modules/
+!vendor/
+disable-completions
+disable-chat
+disable-autocomplete
+disable-copilot 

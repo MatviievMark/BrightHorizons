@@ -16,13 +16,20 @@ use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\InvitationController;
 
 
+Route::get('/', function () {
+    return Inertia::render('Welcome', [
+        'auth' => [
+            'user' => Auth::user(),
+        ],
+    ]);
+})->name('welcome');
 
 Route::middleware(['web', UpdateUserLastActive::class])->group(function () {
     Route::middleware(['auth', 'verified'])->group(function () {
         // dashboard 
-        Route::get('/', function () {
+        Route::get('/dashboard', function () {
             return Inertia::render('Dashboard');
-        })->middleware(['auth', 'verified'])->name('dashboard');
+        })->name('dashboard');
     
         // render the bug form
         Route::get('/bugs', function () {
