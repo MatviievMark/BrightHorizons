@@ -14,6 +14,10 @@ export default {
         extend: {
             fontFamily: {
                 sans: ['Plus Jakarta Sans', ...defaultTheme.fontFamily.sans],
+                commissioner: ['Commissioner', ...defaultTheme.fontFamily.sans],
+            },
+            boxShadow: {
+                'card': '0 8px 24px rgba(0, 0, 0, 0.25)',
             },
             colors: {
                 'primary': '#2A1C6C',

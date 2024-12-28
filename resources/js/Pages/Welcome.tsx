@@ -1,6 +1,10 @@
 import { Link, Head } from '@inertiajs/react';
 import UnderlineSvg from '@/Components/UnderlineSvg';
 import SparksSvg from '@/Components/SparksSvg';
+import LeafSvg from '@/Components/LeafSvg';
+import ArrowSvg from '@/Components/ArrowSvg';
+import CircleSvg from '@/Components/CircleSvg';
+import SmileySvg from '@/Components/SmileySvg';
 
 interface Props {
     auth: {
@@ -54,56 +58,140 @@ export default function Welcome({ auth }: Props) {
             <div className='relative z-10 px-8 pt-48'>
                 <div className='relative w-full'>
                     {/* Meet Max vertical text */}
-                    <div className='absolute -right-10 '>
+                    <div className='absolute -right-10'>
                         <div className='mb-14'></div>
-                        <div className='text-[6.25rem] font-extrabold text-primary writing-mode-vertical transform rotate-180 tracking-[-0.02em]' style={{ writingMode: 'vertical-rl' }}>
+                        <div className='text-[6.25rem] max-[390px]:text-[5.5rem] max-[375px]:text-[5rem] max-[320px]:text-[3.5rem] font-extrabold text-primary writing-mode-vertical transform rotate-180 tracking-[-0.02em]' style={{ writingMode: 'vertical-rl' }}>
                             Meet Max
                         </div>
                     </div>
 
-                    <div className='max-w-3xl'>
+                    <div className='max-w-[430px] md:max-w-3xl'>
                         {/* Large Circle */}
                         <div className='absolute top-[-4rem] right-[13em] w-[19rem] h-[19rem] overflow-x-hidden'>
                             <div className='w-full h-full rounded-full bg-blue'></div>
                         </div>
                         {/* Circle Image Placeholder */}
-                        <div className='relative w-[17.5rem] h-[17.5rem] rounded-full bg-gray-200 mb-8'>
-                            <SparksSvg className="absolute -top-[3.8rem] -right-[3.5rem]" />
+                        <div className='relative w-[17.5rem] max-[390px]:w-[16rem] max-[375px]:w-[14rem] max-[320px]:w-[12rem] h-[17.5rem] max-[390px]:h-[16rem] max-[375px]:h-[14rem] max-[320px]:h-[12rem] rounded-full bg-gray-200 mb-8 max-[375px]:mb-6'>
+                            <SparksSvg className="absolute -top-[3.8rem] -right-[3.5rem] max-[390px]:-top-[3.4rem] max-[390px]:-right-[3.2rem] max-[390px]:w-28 max-[375px]:-top-[3rem] max-[375px]:-right-[2.8rem] max-[375px]:w-24 max-[320px]:-top-[2.5rem] max-[320px]:-right-[2.5rem] max-[320px]:w-20" />
                             {/* Image Goes Here */}
                         </div>
 
                         {/* Content */}
-                        <div className='max-w-[19.375rem] -mt-4'>
-                            <p className='text-[1.313rem] text-primary mb-8 leading-[1.875rem] font-medium tracking-[-0.01em]'>
+                        <div className='max-w-[19.375rem] max-[390px]:max-w-[17rem] max-[375px]:max-w-[16rem] max-[320px]:max-w-[14rem] -mt-4'>
+                            <p className='text-[1.313rem] max-[390px]:text-[1.2rem] max-[375px]:text-[1.1rem] max-[320px]:text-[1rem] text-primary mb-8 leading-[1.875rem] max-[390px]:leading-[1.7rem] max-[375px]:leading-[1.6rem] max-[320px]:leading-[1.4rem] font-medium tracking-[-0.01em]'>
                                 With over 8 years of experience teaching mathematics, Max specializes in making complex concepts clear and engaging
                             </p>
 
                             {/* Credentials */}
                             <div className='space-y-3'>
-                                <div className='bg-grey py-4 pr-6 rounded-lg flex items-center w-[277px] h-[55px]'>
-                                    <div className='w-1.5 h-[3.438rem] bg-primary'></div>
+                                <div className='bg-grey py-4 max-[390px]:py-3.5 max-[375px]:py-3 pr-6 max-[390px]:pr-5 max-[375px]:pr-4 rounded-lg flex items-center w-[277px] max-[390px]:w-[260px] max-[375px]:w-full h-[55px] max-[390px]:h-[52px] max-[375px]:h-[48px] max-[320px]:h-[45px]'>
+                                    <div className='w-1.5 h-[3.438rem] max-[390px]:h-[3.2rem] max-[375px]:h-[3rem] max-[320px]:h-[2.8rem] bg-primary'></div>
                                     <div className='ml-4'>
-                                        <h3 className='font-bold text-[1.125rem] text-primary'>FL Certified Math Teacher</h3>
-                                        <p className='text-gray-600 text-[0.85rem]'>Secondary Mathematics</p>
+                                        <h3 className='font-bold text-[1.125rem] max-[390px]:text-[1.05rem] max-[375px]:text-[1rem] text-primary tracking-[-0.02em]'>FL Certified Math Teacher</h3>
+                                        <p className='text-gray-600 text-[0.85rem] max-[390px]:text-[0.8rem] max-[375px]:text-[0.75rem] tracking-[0.02em]'>Secondary Mathematics</p>
                                     </div>
                                 </div>
 
-                                <div className='bg-grey py-4 pr-6 rounded-lg flex items-center w-[277px] h-[55px]'>
-                                    <div className='w-1.5 h-[3.438rem] bg-primary'></div>
+                                <div className='bg-grey py-4 max-[390px]:py-3.5 max-[375px]:py-3 pr-6 max-[390px]:pr-5 max-[375px]:pr-4 rounded-lg flex items-center w-[277px] max-[390px]:w-[260px] max-[375px]:w-full h-[55px] max-[390px]:h-[52px] max-[375px]:h-[48px] max-[320px]:h-[45px]'>
+                                    <div className='w-1.5 h-[3.438rem] max-[390px]:h-[3.2rem] max-[375px]:h-[3rem] max-[320px]:h-[2.8rem] bg-primary'></div>
                                     <div className='ml-4'>
-                                        <h3 className='font-bold text-[1.125rem] text-primary'>Master's in Finance</h3>
-                                        <p className='text-gray-600 text-[0.85rem]'>University of Florida</p>
+                                        <h3 className='font-bold text-[1.125rem] max-[390px]:text-[1.05rem] max-[375px]:text-[1rem] text-primary tracking-[-0.02em]'>Master's in Finance</h3>
+                                        <p className='text-gray-600 text-[0.85rem] max-[390px]:text-[0.8rem] max-[375px]:text-[0.75rem] tracking-[0.02em]'>University of Florida</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>     
+                </div>
+            </div>
 
-                    {/* Journey to text */}
-                    <div className='mt-32'>
-                        <h2 className='text-[5rem] font-extrabold text-primary leading-tight'>
-                            Journey to
+            
+            {/* Journey To Mastery Section */}
+            <div className='relative z-10 px-8 pt-24'>
+                {/* Slanted Blue Background for Journey to Mastery */}
+                <div className="absolute left-0 w-full h-[62rem] overflow-x-hidden">
+                    <div 
+                        className="absolute w-full h-full bg-light-blue transform skew-y-[-9deg] translate-y-[-10%]"
+                        style={{ zIndex: 0 }}
+                    ></div>
+                </div>
+                <div className='max-w-xl mx-auto relative z-10'>
+                    <div className="relative">
+                        <h2 className='text-[3.125rem] font-extrabold text-primary leading-tight mb-8 pt-12 ml-[1.2rem]'>
+                            Journey to Mastery
+                            <CircleSvg className="absolute -bottom-[2rem] -right-[-6.5rem] max-[390px]:-right-[-3.5rem] -z-10" />
+                            <SmileySvg className="absolute -bottom-[0rem] -right-[-0.5rem] max-[390px]:-right-[1rem]" />
                         </h2>
+                    </div>
+                    
+                    {/* Journey Cards */}
+                    <div className="space-y-8 pt-10">
+                        {/* Quick Start Section */}
+                        <div className="relative">
+                            <span className="absolute -left-[-2rem] -top-12 text-[6rem] font-commissioner font-extrabold text-blue">1</span>
+                            <div className="relative">
+                                <h3 className="text-[1.563rem] font-bold text-primary mb-2 ml-12">Quick Start</h3>
+                                <div className="bg-blue backdrop-blur-sm rounded-3xl p-5 shadow-card">
+                                    <p className="text-primary text-[1.063rem] mb-4 tracking-[-0.01em] leading-[1.188rem]">15-minute assessment to pinpoint your current level</p>
+                                    <div className="flex space-x-8">
+                                        <div className="flex items-center space-x-2">
+                                            <div className="w-3 h-3 rounded-full bg-purple"></div>
+                                            <span className="text-primary text-[0.9rem]">Diagnostic Test</span>
+                                        </div>
+                                        <div className="flex items-center space-x-2">
+                                            <div className="w-3 h-3 rounded-full bg-purple"></div>
+                                            <span className="text-primary text-[0.9rem]">Instant Results</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Your Path Section */}
+                        <div className="relative">
+                            <span className="absolute -left-[-2rem] -top-12 text-[6rem] font-commissioner font-extrabold text-grey">2</span>
+                            <div className="relative">
+                                <h3 className="text-[1.563rem] font-bold text-primary mb-2 ml-12">Your Path</h3>
+                                <div className="bg-grey backdrop-blur-sm rounded-3xl p-5 shadow-card">
+                                    <p className="text-primary text-[1.063rem] mb-4 tracking-[-0.01em] leading-[1.188rem]">AI-powered learning path tailored to your goals</p>
+                                    <div className="flex space-x-8">
+                                        <div className="flex items-center space-x-2">
+                                            <div className="w-3 h-3 rounded-full bg-purple"></div>
+                                            <span className="text-primary text-[0.9rem]">Custom Modules</span>
+                                        </div>
+                                        <div className="flex items-center space-x-2">
+                                            <div className="w-3 h-3 rounded-full bg-purple"></div>
+                                            <span className="text-primary text-[0.9rem]">Smart Pacing</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Track Growth Section */}
+                        <div className="relative">
+                            <span className="absolute -left-[-2rem] -top-12 text-[6rem] font-commissioner font-extrabold text-blue">3</span>
+                            <div className="relative">
+                                <h3 className="text-[1.563rem] font-bold text-primary mb-2 ml-12">Track Growth</h3>
+                                <div className="bg-blue backdrop-blur-sm rounded-3xl p-5 shadow-card">
+                                    <p className="text-primary text-[1.063rem] mb-4 tracking-[-0.01em] leading-[1.188rem]">15-minute assessment to pinpoint your current level</p>
+                                    <div className="flex space-x-8">
+                                        <div className="flex items-center space-x-2">
+                                            <div className="w-3 h-3 rounded-full bg-purple"></div>
+                                            <span className="text-primary text-[0.9rem]">Diagnostic Test</span>
+                                        </div>
+                                        <div className="flex items-center space-x-2">
+                                            <div className="w-3 h-3 rounded-full bg-purple"></div>
+                                            <span className="text-primary text-[0.9rem]">Instant Results</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Arrows */}
+                        <LeafSvg className="absolute -top-[-21rem] -right-[1rem]" />
+                        <ArrowSvg className="absolute -top-[-33rem] -right-[1rem]" />
                     </div>
                 </div>
             </div>
