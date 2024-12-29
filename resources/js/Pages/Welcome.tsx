@@ -210,12 +210,10 @@ export default function Welcome({ auth }: Props) {
             <div className='relative z-10 px-8 pt-24 pb-32'>
                 {/* Title */}
                 <div className="max-w-4xl mx-auto">
-                    <h2 className="text-[3.1rem] whitespace-nowrap font-extrabold text-primary transform -rotate-[9deg] mb-[7rem] mt-[3rem] ml-[-1.6rem]">
+                    <h2 className="text-[3.1rem] max-[390px]:text-[2.8rem] whitespace-nowrap font-extrabold text-primary transform -rotate-[9deg] mb-[7rem] mt-[3rem] ml-[-1.6rem]">
                         Investment Plans
                     </h2>
-
-                    
-
+            
                     {/* Pricing Cards */}
                     <div className="flex flex-col items-center space-y-6">
                         {/* Online 1-on-1 */}
@@ -290,7 +288,7 @@ export default function Welcome({ auth }: Props) {
 
                         {/* Contact */}
                         <div className='text-center md:text-right'>
-                            <p className='text-primary font-medium mb-2'>Ready to excel in math?</p>
+                            <p className='text-primary font-medium mb-6'>Ready to excel in math?</p>
                             <button className='bg-purple text-white px-8 py-2 rounded-full text-sm font-bold hover:bg-opacity-90 transition-colors'>
                                 Contact Max
                             </button>
