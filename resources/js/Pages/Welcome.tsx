@@ -5,6 +5,11 @@ import LeafSvg from '@/Components/LeafSvg';
 import ArrowSvg from '@/Components/ArrowSvg';
 import CircleSvg from '@/Components/CircleSvg';
 import SmileySvg from '@/Components/SmileySvg';
+import LinesSvg from '@/Components/LinesSvg';
+import DoubleCircleSvg from '@/Components/DoubleCircleSvg';
+import BearStockSvg from '@/Components/BearStockSvg';
+import StarsSvg from '@/Components/StarsSvg';
+import CTAArrows from '@/Components/CTAArrows';
 
 interface Props {
     auth: {
@@ -192,6 +197,117 @@ export default function Welcome({ auth }: Props) {
                         {/* Arrows */}
                         <LeafSvg className="absolute -top-[-21rem] -right-[1rem]" />
                         <ArrowSvg className="absolute -top-[-33rem] -right-[1rem]" />
+                    </div>
+                </div>
+            </div>
+
+            {/* Decorative Circle for Investment Plans */}
+            <div className='absolute right-[-10rem] w-[23rem] h-[23rem] overflow-hidden' style={{ top: '121.5rem', zIndex: 0 }}>
+                <div className='w-full h-full rounded-full bg-blue '></div>
+            </div>
+
+            {/* Investment Plans Section */}
+            <div className='relative z-10 px-8 pt-24 pb-32'>
+                {/* Title */}
+                <div className="max-w-4xl mx-auto">
+                    <h2 className="text-[3.1rem] whitespace-nowrap font-extrabold text-primary transform -rotate-[9deg] mb-[7rem] mt-[3rem] ml-[-1.6rem]">
+                        Investment Plans
+                    </h2>
+
+                    
+
+                    {/* Pricing Cards */}
+                    <div className="flex flex-col items-center space-y-6">
+                        {/* Online 1-on-1 */}
+                        <div className="relative">
+                            <LinesSvg className="absolute -left-[0rem] -top-[3rem] -z-10" />
+                            <div className="bg-grey backdrop-blur-sm rounded-3xl p-6 shadow-card w-[15.5rem]">
+                                <h3 className="text-[1.25rem] font-bold text-primary mb-1">Online 1-on-1</h3>
+                                <div className="text-[1.5rem] font-bold text-primary mb-3">$40/hour</div>
+                                <div className="space-y-2">
+                                    <div className="flex items-center space-x-2">
+                                        <div className="w-2 h-2 rounded-full bg-purple"></div>
+                                        <span className="text-primary text-[0.9rem]">Flexible scheduling</span>
+                                    </div>
+                                    <div className="flex items-center space-x-2">
+                                        <div className="w-2 h-2 rounded-full bg-purple"></div>
+                                        <span className="text-primary text-[0.9rem]">Virtual whiteboard</span>
+                                    </div>
+                                </div>
+                                <BearStockSvg className="absolute top-[-3.3rem] right-[4rem]" />
+                            </div>
+                        </div>
+                        <CTAArrows className="absolute -left-[-1rem] -top-[-25rem] w-24 h-40" />
+
+                        {/* 10-Hour Package */}
+                        <div className="bg-primary backdrop-blur-sm rounded-3xl p-6 shadow-card w-[16rem]">
+                            <h3 className="text-[1.25rem] font-bold text-white mb-1">10-Hour Package</h3>
+                            <div className="text-[1.5rem] font-bold text-white mb-3">$350</div>
+                            <div className="space-y-2">
+                                <div className="flex items-center space-x-2">
+                                    <div className="w-2 h-2 rounded-full bg-blue"></div>
+                                    <span className="text-white text-[0.9rem]">Most Popular Choice</span>
+                                </div>
+                                <div className="flex items-center space-x-2">
+                                    <div className="w-2 h-2 rounded-full bg-blue"></div>
+                                    <span className="text-white text-[0.9rem]">Save $50</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* In-Person */}
+                        <div className="relative">
+                            <DoubleCircleSvg className="absolute -left-[3.5rem] -top-[0rem] -z-10" />
+                            <div className="bg-grey backdrop-blur-sm rounded-3xl p-6 shadow-card w-[15.5rem]">
+                                <h3 className="text-[1.25rem] font-bold text-primary mb-1">In-Person</h3>
+                                <div className="text-[1.5rem] font-bold text-primary mb-3">$50/hour</div>
+                                <div className="space-y-2">
+                                    <div className="flex items-center space-x-2">
+                                        <div className="w-2 h-2 rounded-full bg-purple"></div>
+                                        <span className="text-primary text-[0.9rem]">Jacksonville area only</span>
+                                    </div>
+                                    <div className="flex items-center space-x-2">
+                                        <div className="w-2 h-2 rounded-full bg-purple"></div>
+                                        <span className="text-primary text-[0.9rem]">2-hour minimum</span>
+                                    </div>
+                                </div>
+                                <StarsSvg className="absolute bottom-[-10rem] right-[-2rem]" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            {/* Footer */}
+            <div className='relative z-10 px-8 py-16 mt-24 bg-grey'>
+                <div className='max-w-4xl mx-auto'>
+                    <div className='flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0'>
+                        {/* Logo/Brand */}
+                        <div className='text-primary font-extrabold text-xl'>
+                            Bright Horizons
+                        </div>
+
+                        {/* Contact */}
+                        <div className='text-center md:text-right'>
+                            <p className='text-primary font-medium mb-2'>Ready to excel in math?</p>
+                            <button className='bg-purple text-white px-8 py-2 rounded-full text-sm font-bold hover:bg-opacity-90 transition-colors'>
+                                Contact Max
+                            </button>
+                        </div>
+                    </div>
+
+                    {/* Divider */}
+                    <div className='h-px bg-primary/10 my-8'></div>
+
+                    {/* Bottom Section */}
+                    <div className='flex flex-col md:flex-row justify-between items-center text-sm text-primary/60'>
+                        <div>© 2024 Bright Horizons. All rights reserved.</div>
+                        <div className='mt-4 md:mt-0'>
+                            <a href="#" className='hover:text-primary transition-colors'>Privacy Policy</a>
+                            <span className='mx-4'>|</span>
+                            <a href="#" className='hover:text-primary transition-colors'>Terms of Service</a>
+                        </div>
                     </div>
                 </div>
             </div>
