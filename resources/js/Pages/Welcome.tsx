@@ -1,15 +1,15 @@
 import { Link, Head } from '@inertiajs/react';
-import UnderlineSvg from '@/Components/UnderlineSvg';
-import SparksSvg from '@/Components/SparksSvg';
-import LeafSvg from '@/Components/LeafSvg';
-import ArrowSvg from '@/Components/ArrowSvg';
-import CircleSvg from '@/Components/CircleSvg';
-import SmileySvg from '@/Components/SmileySvg';
-import LinesSvg from '@/Components/LinesSvg';
+import UnderlineSvg from '@/Components/Svg/UnderlineSvg';
+import SparksSvg from '@/Components/Svg/SparksSvg';
+import LeafSvg from '@/Components/Svg/LeafSvg';
+import ArrowSvg from '@/Components/Svg/ArrowSvg';
+import CircleSvg from '@/Components/Svg/CircleSvg';
+import SmileySvg from '@/Components/Svg/SmileySvg';
+import LinesSvg from '@/Components/Svg/LinesSvg';
 import DoubleCircleSvg from '@/Components/DoubleCircleSvg';
-import BearStockSvg from '@/Components/BearStockSvg';
-import StarsSvg from '@/Components/StarsSvg';
-import CTAArrows from '@/Components/CTAArrows';
+import BearStockSvg from '@/Components/Svg/BearStockSvg';
+import StarsSvg from '@/Components/Svg/StarsSvg';
+import CTAArrows from '@/Components/Svg/CTAArrows';
 
 interface Props {
     auth: {
