@@ -1,4 +1,6 @@
 import { Link, Head } from '@inertiajs/react';
+import { useEffect, useState } from 'react';
+import WelcomeDesktop from './WelcomeDesktop';
 import Navigation from '@/Components/Navigation';
 import UnderlineSvg from '@/Components/Svg/UnderlineSvg';
 import SparksSvg from '@/Components/Svg/SparksSvg';
@@ -19,6 +21,25 @@ interface Props {
 }
 
 export default function Welcome({ auth }: Props) {
+    const [isDesktop, setIsDesktop] = useState(false);
+
+    useEffect(() => {
+        const checkDevice = () => {
+            setIsDesktop(window.innerWidth >= 1024);
+        };
+
+        checkDevice();
+        window.addEventListener('resize', checkDevice);
+
+        return () => {
+            window.removeEventListener('resize', checkDevice);
+        };
+    }, []);
+
+    if (isDesktop) {
+        return <WelcomeDesktop auth={auth} />;
+    }
+
     return (
         <div className="relative min-h-screen bg-white font-sans overflow-x-hidden">
             <Navigation />
