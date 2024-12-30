@@ -1,4 +1,5 @@
 import { Link, Head } from '@inertiajs/react';
+import Navigation from '@/Components/Navigation';
 import UnderlineSvg from '@/Components/Svg/UnderlineSvg';
 import SparksSvg from '@/Components/Svg/SparksSvg';
 import LeafSvg from '@/Components/Svg/LeafSvg';
@@ -20,6 +21,7 @@ interface Props {
 export default function Welcome({ auth }: Props) {
     return (
         <div className="relative min-h-screen bg-white font-sans overflow-x-hidden">
+            <Navigation />
             {/* Grid Background */}
             <div className="absolute inset-0" style={{
                 backgroundImage: `
@@ -38,12 +40,12 @@ export default function Welcome({ auth }: Props) {
             </div>
 
             {/* Large Circle */}
-            <div className='absolute top-[9rem] right-[-7rem] w-[15.313rem] h-[16rem] overflow-x-hidden'>
+            <div className='absolute top-[12rem] right-[-7rem] w-[15.313rem] h-[16rem] overflow-x-hidden'>
                 <div className='w-full h-full rounded-full bg-blue'></div>
             </div>
 
             {/* Hero Content Container */}
-            <div className='relative z-10 px-8 pt-20'>
+            <div className='relative z-10 px-8 pt-28'>
                 <div className='max-w-xl mx-auto'>
                     <h1 className='text-[3.5rem] font-extrabold text-primary leading-tight mb-8'>
                         Master the Language
