@@ -278,7 +278,7 @@ export default function Welcome({ auth }: Props) {
 
                         {/* In-Person */}
                         <div className="relative">
-                            <DoubleCircleSvg className="absolute -left-[3.5rem] -top-[0rem] -z-10" />
+                            <DoubleCircleSvg className="absolute -left-[3.5rem] -top-[0rem] w-[15rem] -z-10" />
                             <div className="bg-grey backdrop-blur-sm rounded-3xl p-6 shadow-card w-[15.5rem]">
                                 <h3 className="text-[1.25rem] font-bold text-primary mb-1">In-Person</h3>
                                 <div className="text-[1.5rem] font-bold text-primary mb-3">$50/hour</div>
