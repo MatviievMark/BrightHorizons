@@ -7,8 +7,6 @@ interface Props {
 export default function CTAArrow({ className = '' }: Props) {
     return (
         <svg 
-            width="101" 
-            height="102" 
             viewBox="0 0 101 102" 
             fill="none" 
             xmlns="http://www.w3.org/2000/svg" 
