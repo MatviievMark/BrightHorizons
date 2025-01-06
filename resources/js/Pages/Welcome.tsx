@@ -76,9 +76,11 @@ export default function Welcome({ auth }: Props) {
                             <UnderlineSvg className="absolute -bottom-4 left-12" />
                         </span>
                     </h1>
-                    <button className="bg-purple text-white h-[3.5rem] w-[13.75rem] rounded-full text-[1.25rem] font-extrabold hover:bg-opacity-90 transition-colors">
-                        BOOK SESSION
-                    </button>
+                    <Link href="/book-session" className="inline-block">
+                        <button className="bg-purple text-white h-[3.5rem] w-[13.75rem] rounded-full text-[1.25rem] font-extrabold hover:bg-opacity-90 transition-colors">
+                            BOOK SESSION
+                        </button>
+                    </Link>
                 </div>
             </div>
 

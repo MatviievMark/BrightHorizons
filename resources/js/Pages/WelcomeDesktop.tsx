@@ -50,9 +50,9 @@ export default function WelcomeDesktop({ auth }: Props) {
                             <UnderlineSvg className="absolute -bottom-6 left-1/2 -translate-x-[25%] w-64" />
                         </span>
                     </h1>
-                    <button className="bg-purple text-white h-[4rem] w-[16rem] rounded-full text-[1.5rem] font-extrabold hover:bg-opacity-90 transition-colors">
+                    <Link href="/book-session" className="inline-block bg-purple text-white h-[4rem] w-[16rem] rounded-full text-[1.5rem] font-extrabold hover:bg-opacity-90 transition-colors leading-[4rem]">
                         BOOK SESSION
-                    </button>
+                    </Link>
                 </div>
             </div>
 

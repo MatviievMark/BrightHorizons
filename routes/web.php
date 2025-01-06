@@ -24,6 +24,14 @@ Route::get('/', function () {
     ]);
 })->name('welcome');
 
+Route::get('/book-session', function () {
+    return Inertia::render('BookSession', [
+        'auth' => [
+            'user' => Auth::user(),
+        ],
+    ]);
+})->name('book.session');
+
 Route::middleware(['web', UpdateUserLastActive::class])->group(function () {
     Route::middleware(['auth', 'verified'])->group(function () {
         // dashboard 

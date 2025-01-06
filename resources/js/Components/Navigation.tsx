@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import gsap from 'gsap';
+import { Link } from '@inertiajs/react';
 
 interface NavigationProps {
     className?: string;
@@ -134,9 +135,9 @@ export default function Navigation({ className = '' }: NavigationProps) {
                         className="bg-white rounded-[3rem] shadow-lg px-[2.5rem] w-[90vw] sm:w-[28rem] h-[4rem] overflow-hidden"
                     >
                         <div className="flex justify-between items-center h-[4rem]">
-                            <div className="text-primary font-extrabold text-[1.5rem]">
+                            <Link href="/" className="text-primary font-extrabold text-[1.5rem]">
                                 Bright Horizons
-                            </div>
+                            </Link>
                             <div ref={hamburgerRef} className={`ml-[1rem] p-[0.5rem] cursor-pointer ${isVisible ? 'pointer-events-none' : ''}`} onClick={() => setIsOpen(true)}>
                                 <div className="w-[1.75rem] h-[0.25rem] bg-primary mb-[0.3rem] transition-all"></div>
                                 <div className="w-[1.75rem] h-[0.25rem] bg-primary mb-[0.3rem] transition-all"></div>
@@ -155,9 +156,9 @@ export default function Navigation({ className = '' }: NavigationProps) {
                         </div>
                         
                         <div ref={menuItemsRef} className="flex flex-col space-y-[1.9rem] mt-[2rem]">
-                            <button className="bg-purple text-white h-[3.5rem] w-full rounded-[3rem] text-[1.25rem] font-extrabold hover:bg-opacity-90 transition-colors">
+                            <Link href="/book-session" className="bg-purple text-white h-[3.5rem] w-full rounded-[3rem] text-[1.25rem] font-extrabold hover:bg-opacity-90 transition-colors flex items-center justify-center">
                                 BOOK SESSION
-                            </button>
+                            </Link>
                             <button className="text-primary text-[1.25rem] font-bold hover:text-purple transition-colors">
                                 ABOUT
                             </button>
