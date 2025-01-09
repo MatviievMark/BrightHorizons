@@ -55,6 +55,8 @@ Route::middleware(['web', UpdateUserLastActive::class])->group(function () {
         Route::put('/calendar/{calendar}', [CalendarController::class, 'update'])->name('calendar.update');
         Route::delete('/calendar/{calendar}', [CalendarController::class, 'destroy'])->name('calendar.destroy');
         Route::post('/calendar/book', [CalendarController::class, 'bookSession'])->name('calendar.book');
+        Route::get('/calendar/blocked-days', [CalendarController::class, 'getBlockedDays'])->name('calendar.blocked-days');
+        Route::get('/calendar/booked-slots', [CalendarController::class, 'getBookedSlots'])->name('calendar.booked-slots');
     
         // Notifications 
         Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');

@@ -60,6 +60,23 @@ class CalendarController extends Controller
             });
     }
 
+    public function getBookedSlots(Request $request)
+    {
+        $date = $request->query('date');
+        
+        $bookedSlots = Calendar::where('date', $date)
+            ->whereNotNull('time_slot')
+            ->get()
+            ->map(function($slot) {
+                return [
+                    'time_slot' => $slot->time_slot,
+                    'lesson_type' => $slot->lesson_type
+                ];
+            });
+
+        return response()->json($bookedSlots);
+    }
+
     public function store(Request $request)
     {
         $validated = $request->validate([

@@ -6,11 +6,22 @@ import LinesSvg from '@/Components/Svg/LinesSvg';
 import BearStockSvg from '@/Components/Svg/BearStockSvg';
 import StarsSvg from '@/Components/Svg/StarsSvg';
 import DoubleCircleSvg from '@/Components/DoubleCircleSvg';
+import axios from 'axios';
 
 interface Props {
     auth: {
         user: any;
     };
+}
+
+interface BlockedDay {
+    date: string;
+    blocked: boolean;
+}
+
+interface BookedSlot {
+    time_slot: string;
+    lesson_type: string;
 }
 
 export default function BookSession({ auth }: Props) {
@@ -20,6 +31,8 @@ export default function BookSession({ auth }: Props) {
     const [showCalendar, setShowCalendar] = useState(false);
     const [sessionType, setSessionType] = useState<'online' | 'inPerson' | null>(null);
     const [footerHeight, setFooterHeight] = useState(0);
+    const [blockedDays, setBlockedDays] = useState<BlockedDay[]>([]);
+    const [bookedSlots, setBookedSlots] = useState<BookedSlot[]>([]);
     
     const timeSelectorRef = useRef<HTMLDivElement>(null);
     const calendarContainerRef = useRef<HTMLDivElement>(null);
@@ -47,25 +60,36 @@ export default function BookSession({ auth }: Props) {
         }
     }, [showCalendar, selectedDate, selectedTimeSlots]);
 
-    // Generate time slots based on session type
+    // Convert 24h time slot to 12h format for display
+    const formatTimeSlotFor12Hour = (timeSlot: string) => {
+        const [start, end] = timeSlot.split('-');
+        const formatHour = (time: string) => {
+            const hour = parseInt(time);
+            const period = hour >= 12 ? 'PM' : 'AM';
+            const hour12 = hour > 12 ? hour - 12 : (hour === 0 ? 12 : hour);
+            return `${hour12}:00 ${period}`;
+        };
+        
+        return `${formatHour(start)} - ${formatHour(end)}`;
+    };
+
+    // Get time slots based on session type
     const getTimeSlots = () => {
         const slots: string[] = [];
         if (sessionType === 'online') {
             // Generate 1-hour slots from 8 AM to 8 PM
             for (let hour = 8; hour <= 20; hour++) {
-                const ampm = hour >= 12 ? 'PM' : 'AM';
-                const hour12 = hour > 12 ? hour - 12 : hour;
-                slots.push(`${hour12}:00 ${ampm}`);
+                slots.push(`${hour}:00-${hour + 1}:00`);
             }
         } else if (sessionType === 'inPerson') {
-            // Generate 2-hour blocks from 8 AM to 8 PM
-            for (let hour = 8; hour < 20; hour += 2) {
-                const ampm = hour >= 12 ? 'PM' : 'AM';
-                const hour12 = hour > 12 ? hour - 12 : hour;
-                const endHour = hour + 2;
-                const endHour12 = endHour > 12 ? endHour - 12 : endHour;
-                const endAmPm = endHour >= 12 ? 'PM' : 'AM';
-                slots.push(`${hour12}:00 ${ampm} - ${endHour12}:00 ${endAmPm}`);
+            // Generate 2-hour lesson blocks from 9 AM to 7 PM
+            // Each block needs 4 hours total (1h travel + 2h lesson + 1h travel)
+            for (let hour = 9; hour <= 17; hour++) {
+                // For each potential lesson start time, check if the entire 4-hour block is available
+                const isBlockAvailable = !isTimeBlockBooked(hour);
+                if (isBlockAvailable) {
+                    slots.push(`${hour}:00-${hour + 2}:00`);
+                }
             }
         }
         return slots;
@@ -167,7 +191,11 @@ export default function BookSession({ auth }: Props) {
         // Check if date is between today and one month from now
         const isInRange = date >= today && date <= oneMonthFromNow;
 
-        return !isSunday && isInRange;
+        // Check if the date is blocked
+        const dateStr = date.toISOString().split('T')[0];
+        const isBlocked = blockedDays.some(day => day.date === dateStr);
+
+        return !isSunday && !isBlocked && isInRange;
     };
 
     const prevMonth = () => {
@@ -263,27 +291,58 @@ export default function BookSession({ auth }: Props) {
         };
     }, [selectedDate]);
 
-    // Format time slot for display
-    const formatTimeRange = (timeSlot: string) => {
-        if (sessionType === 'inPerson') {
-            return timeSlot; // Already in correct format
+    // Fetch blocked days when calendar is shown
+    useEffect(() => {
+        if (showCalendar) {
+            axios.get('/calendar/blocked-days')
+                .then(response => {
+                    setBlockedDays(response.data);
+                    console.log('Blocked Days:', response.data);
+                })
+                .catch(error => {
+                    console.error('Error fetching blocked days:', error);
+                });
         }
-        // For online sessions, convert "8:00 AM" to "8:00 AM - 9:00 AM"
-        const [time, period] = timeSlot.split(' ');
-        const [hour] = time.split(':');
-        const hourNum = parseInt(hour);
-        
-        let nextHour = hourNum + 1;
-        let nextPeriod = period;
-        
-        if (nextHour === 12) {
-            nextPeriod = period === 'AM' ? 'PM' : 'AM';
-        } else if (nextHour > 12) {
-            nextHour = 1;
-            nextPeriod = 'PM';
+    }, [showCalendar]);
+
+    // Handle date selection
+    const handleDateSelect = (date: Date) => {
+        if (isDateSelectable(date)) {
+            setSelectedDate(date);
+            setSelectedTimeSlots([]);
+            
+            // Fetch booked slots for the selected date
+            const dateStr = date.toISOString().split('T')[0];
+            axios.get(`/calendar/booked-slots?date=${dateStr}`)
+                .then(response => {
+                    console.log('Booked Slots for', dateStr, ':', response.data);
+                    setBookedSlots(response.data);
+                })
+                .catch(error => {
+                    console.error('Error fetching booked slots:', error);
+                });
         }
-        
-        return `${hour}:00 ${period} - ${nextHour}:00 ${nextPeriod}`;
+    };
+
+    // Check if a time slot is booked
+    const isTimeSlotBooked = (timeSlot: string) => {
+        return bookedSlots.some(slot => slot.time_slot === timeSlot);
+    };
+
+    // Check if a 4-hour block is available for in-person lessons
+    const isTimeBlockBooked = (lessonStartHour: number) => {
+        // Need to check hour before (travel) + 2 lesson hours + hour after (travel)
+        const hoursToCheck = [
+            lessonStartHour - 1, // Travel to
+            lessonStartHour,     // First lesson hour
+            lessonStartHour + 1, // Second lesson hour
+            lessonStartHour + 2  // Travel from
+        ];
+
+        return hoursToCheck.some(hour => {
+            const timeSlot = `${hour}:00-${hour + 1}:00`;
+            return isTimeSlotBooked(timeSlot);
+        });
     };
 
     return (
@@ -411,7 +470,7 @@ export default function BookSession({ auth }: Props) {
 
                                 {/* Calendar Grid */}
                                 <div className="grid grid-cols-7 gap-2">
-                                    {/* Weekday headers */}
+                                    {/* Days header */}
                                     {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day) => (
                                         <div 
                                             key={day} 
@@ -420,33 +479,27 @@ export default function BookSession({ auth }: Props) {
                                             {day}
                                         </div>
                                     ))}
-
+                                    
                                     {/* Calendar days */}
                                     {getDaysInMonth(currentMonth).map((date, index) => {
-                                        const isSelectable = date && isDateSelectable(date);
+                                        if (!date) return <div key={index} className="aspect-square" />;
+                                        
+                                        const isSelectable = isDateSelectable(date);
+                                        const isSelected = selectedDate && date.toDateString() === selectedDate.toDateString();
+                                        
                                         return (
                                             <div
                                                 key={index}
+                                                onClick={() => handleDateSelect(date)}
                                                 className={`
                                                     aspect-square flex items-center justify-center rounded-full
                                                     ${isSelectable ? 'cursor-pointer hover:bg-purple/10 text-primary' : 'text-gray-300 cursor-not-allowed'}
-                                                    ${date && selectedDate && date.getTime() === selectedDate.getTime() ? 'bg-purple text-white hover:bg-purple' : ''}
+                                                    ${isSelected ? 'bg-purple text-white hover:bg-purple' : ''}
                                                     ${date && isToday(date) ? 'border-2 border-purple' : ''}
+                                                    transition-colors
                                                 `}
-                                                onClick={() => {
-                                                    if (date && isSelectable) {
-                                                        setSelectedDate(date);
-                                                        setSelectedTimeSlots([]);
-                                                        console.log('Selected date:', date.toLocaleDateString('en-US', {
-                                                            weekday: 'long',
-                                                            year: 'numeric',
-                                                            month: 'long',
-                                                            day: 'numeric'
-                                                        }));
-                                                    }
-                                                }}
                                             >
-                                                {date ? date.getDate() : ''}
+                                                {date.getDate()}
                                             </div>
                                         );
                                     })}
@@ -454,7 +507,7 @@ export default function BookSession({ auth }: Props) {
                             </div>
 
                             {/* Time Selector */}
-                            {selectedDate && (
+                            {selectedDate && isDateSelectable(selectedDate) && (
                                 <div 
                                     ref={timeSelectorRef}
                                     className="mt-6 opacity-0"
@@ -464,22 +517,29 @@ export default function BookSession({ auth }: Props) {
                                         Select Time {sessionType === 'inPerson' ? '(2-hour blocks)' : ''}
                                     </h3>
                                     <div className="grid grid-cols-3 gap-3">
-                                        {getTimeSlots().map((time) => (
-                                            <button
-                                                key={time}
-                                                className={`
-                                                    py-2 px-4 rounded-full font-medium
-                                                    ${sessionType === 'inPerson' ? 'text-[0.75rem]' : 'text-sm'}
-                                                    ${selectedTimeSlots.includes(time)
-                                                        ? 'bg-purple text-white hover:bg-purple'
-                                                        : 'bg-grey text-primary hover:bg-purple/10'}
-                                                    transition-colors
-                                                `}
-                                                onClick={() => handleTimeSlotSelect(time)}
-                                            >
-                                                {time}
-                                            </button>
-                                        ))}
+                                        {getTimeSlots().map((time) => {
+                                            const isBooked = isTimeSlotBooked(time);
+                                            return (
+                                                <button
+                                                    key={time}
+                                                    disabled={isBooked}
+                                                    className={`
+                                                        py-2 px-4 rounded-full font-medium
+                                                        ${sessionType === 'inPerson' ? 'text-[0.75rem]' : 'text-sm'}
+                                                        ${isBooked 
+                                                            ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                                                            : selectedTimeSlots.includes(time)
+                                                                ? 'bg-purple text-white hover:bg-purple'
+                                                                : 'bg-grey text-primary hover:bg-purple/10'
+                                                        }
+                                                        transition-colors
+                                                    `}
+                                                    onClick={() => !isBooked && handleTimeSlotSelect(time)}
+                                                >
+                                                    {formatTimeSlotFor12Hour(time)}
+                                                </button>
+                                            );
+                                        })}
                                     </div>
 
                                     {/* Total Hours and Cost */}
@@ -491,7 +551,7 @@ export default function BookSession({ auth }: Props) {
                                                     <div className="mt-2 space-y-1">
                                                         {selectedTimeSlots.map((time, index) => (
                                                             <div key={index} className="text-sm text-primary/80">
-                                                                {formatTimeRange(time)}
+                                                                {formatTimeSlotFor12Hour(time)}
                                                             </div>
                                                         ))}
                                                     </div>
