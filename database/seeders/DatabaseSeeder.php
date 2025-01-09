@@ -28,5 +28,8 @@ class DatabaseSeeder extends Seeder
         // Set password after creation to avoid boot method override
         $admin->password = Hash::make('test1234');
         $admin->save();
+
+        // Run the calendar seeder
+        $this->call(CalendarSeeder::class);
     }
 }

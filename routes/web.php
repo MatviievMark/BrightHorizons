@@ -14,6 +14,7 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Middleware\UpdateUserLastActive;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\InvitationController;
+use App\Http\Controllers\CalendarController;
 
 
 Route::get('/', function () {
@@ -46,6 +47,14 @@ Route::middleware(['web', UpdateUserLastActive::class])->group(function () {
     
         // Bug Reporting
         Route::post('bugs', [BugController::class, 'store']);
+    
+        // Calendar
+        Route::get('/calendar', [CalendarController::class, 'index'])->name('calendar.index');
+        Route::get('/calendar/events', [CalendarController::class, 'getEvents'])->name('calendar.events');
+        Route::post('/calendar', [CalendarController::class, 'store'])->name('calendar.store');
+        Route::put('/calendar/{calendar}', [CalendarController::class, 'update'])->name('calendar.update');
+        Route::delete('/calendar/{calendar}', [CalendarController::class, 'destroy'])->name('calendar.destroy');
+        Route::post('/calendar/book', [CalendarController::class, 'bookSession'])->name('calendar.book');
     
         // Notifications 
         Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');

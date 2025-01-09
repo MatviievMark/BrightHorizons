@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from '@inertiajs/react';
-import { Home, Layers, Users, FileText, BugPlay } from 'lucide-react';
+import { Home, Layers, Users, FileText, BugPlay, Calendar } from 'lucide-react';
 
 interface SidebarProps {
     user: {
@@ -15,6 +15,7 @@ const Sidebar: React.FC<SidebarProps> = ({ user }) => {
         { name: 'Option 1', href: '/option1', icon: Layers },
         { name: 'Option 2', href: '/option2', icon: Users },
         { name: 'Bug Report', href: '/bugs', icon: BugPlay },
+        { name: 'Calendar', href: '/calendar', icon: Calendar },
     ];
 
     return (
